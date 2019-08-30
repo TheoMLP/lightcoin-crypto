@@ -6,26 +6,26 @@ class Account {
   }
 
   get balance() {
-    let balance = 0
+    let balance = 0;
     for (let transaction of this.transactions) {
-      balance += transaction.value
+      balance += transaction.value;
     }
-    return balance
-  };
+    return balance;
+  }
 
   addTransaction(transaction) {
     this.transactions.push(transaction);
   }
-};
+}
 
 class Transaction {
-  constructor(amount, account) {
+  constructor(amount, account) {
     this.amount = amount;
     this.account = account;
   }
 
   commit() {
-    if(!this.isAllowed()) return false;
+    if (!this.isAllowed()) return false;
     this.time = new Date();
     this.account.addTransaction(this);
     return true;
@@ -35,24 +35,24 @@ class Transaction {
 class Withdrawal extends Transaction {
 
   isAllowed() {
-    return (this.account.balance - this.amount >= 0)
+    return (this.account.balance - this.amount >= 0);
   }
 
   get value() {
-    return -this.amount
+    return -this.amount;
   }
-};
+}
 
 class Deposit extends Transaction {
 
   isAllowed() {
-    return true
+    return true;
   }
 
   get value() {
-    return this.amount
+    return this.amount;
   }
-};
+}
 
 // DRIVER CODE BELOW
 // We use the code below to "drive" the application logic above and make sure it's working as expected
